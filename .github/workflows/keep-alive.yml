@@ -1,0 +1,17 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    # Запуск каждый день в 12:00 по UTC (15:00 по Москве)
+    - cron: '0 12 * * *'
+  workflow_dispatch: # Позволяет запускать вручную
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase project
+        run: |
+          curl -X GET "https://xvcxjbdspefnvwkrhgfp.supabase.co/rest/v1/" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Content-Type: application/json"
